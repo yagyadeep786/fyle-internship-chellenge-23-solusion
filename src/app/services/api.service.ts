@@ -6,14 +6,20 @@ import { tap, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-
+  private githubUsername:string='';
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  getUser(githubUsername: string) {
-    return this.httpClient.get(`https://api.github.com/users/${githubUsername}`);
+  getUser() {
+    return this.httpClient.get(`https://api.github.com/users/${this.githubUsername}`);
   }
 
-  // implement getRepos method by referring to the documentation. Add proper types for the return type and params 
+  getRepos(){
+    return this.httpClient.get(`https://api.github.com/users/${this.githubUsername}/repos`)
+  }
+
+  updateProfile(githubUsername:string){
+     this.githubUsername= githubUsername;
+  }
 }
